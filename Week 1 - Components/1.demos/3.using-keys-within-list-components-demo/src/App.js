@@ -1,13 +1,13 @@
 import './index.css';
 import {useState} from "react";
 
-const ToDo = props => (
-  <tr>
-    <td>
+const ToDo = props => ( // This is a stateless component
+  <tr> {/*// This is a table row(tr)*/}
+    <td> {/*// This is a table data (td) cell*/} 
       <label>{props.id}</label>
     </td>
     <td>
-      <input />
+      <input />{/*// This is an input receive from user */}
     </td>
     <td>
       <label>{props.createdAt}</label>
@@ -15,7 +15,8 @@ const ToDo = props => (
   </tr>
 );
 
-function App() {
+function App() { 
+  // This is a stateful component
   const [todos, setTodos] = useState([{
     id: 'todo1',
     createdAt: '18:00',
@@ -27,7 +28,7 @@ function App() {
 
   const reverseOrder = () => {
     // Reverse is a mutative operation, so we need to create a new array first.
-    setTodos([...todos].reverse());
+    setTodos([...todos].reverse());  // This is a shallow copy of the array. React ES6 Spread Operator(...)
   }
 
   // First example with keys, show browser console to see the warning.
@@ -37,7 +38,11 @@ function App() {
       <table>
         <tbody>
           {todos.map((todo, index) => (
-            <ToDo key={todo.id} id={todo.id} createdAt={todo.createdAt} />
+            
+            // if you use key={index}, the key will remain the same when the list is reversed.
+            // index is not a good key because If the order of items may change, that can negatively impact performance and may cause issues with component state. 
+            <ToDo key={todo.id} id={todo.id} createdAt={todo.createdAt} />  // This is a stateless component with props
+          
           ))}
         </tbody>
       </table>

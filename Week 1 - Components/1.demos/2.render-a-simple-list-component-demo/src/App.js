@@ -26,7 +26,7 @@ const topDesserts = [
 
 function App() {
   const listItems = topDesserts.map(dessert => {
-    const itemText = `${dessert.title} - ${dessert.price}`
+    const itemText = `${dessert.title} - ${dessert.description} - ${dessert.price} `
     return <li>{itemText}</li>
   })
   return (
