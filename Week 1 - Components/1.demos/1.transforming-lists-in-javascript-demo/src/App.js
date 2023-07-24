@@ -22,8 +22,8 @@ const data = [
   },
 ];
 
-const topDesserts = data.map(dessert => {
-  return {
+// map() is a method that creates a new array with the results of calling a function for every array element.
+const topDesserts = data.map(dessert => {    return {
     content: `${dessert.title} - ${dessert.description}`,
     price: dessert.price,
   }

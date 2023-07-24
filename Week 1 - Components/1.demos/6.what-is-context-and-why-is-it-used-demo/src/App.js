@@ -11,9 +11,10 @@ const LoggedInUser = () => {
 };
 
 const Header = () => {
+  const {user} = useUser();
   return (
     <header>
-      <h2>Blog App</h2>
+      <h2>Blog App of {user.email}</h2>
       <LoggedInUser />
     </header>
   );
