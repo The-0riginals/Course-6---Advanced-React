@@ -6,6 +6,7 @@ function App() {
 
   const focusInput = () => {
     formInputRef.current.focus();
+    formInputRef.current.value = "Hello World";
   }
 
   return (
