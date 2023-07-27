@@ -9,11 +9,11 @@ const Row = ({ children, spacing }) => {
 
   return (
     <div className="Row">
-      {React.Children.map(children, (child, index) => {
-        return React.cloneElement(child, {
+      {React.Children.map(children, (child, index) => { 
+        return React.cloneElement(child, { // this is to clone the child and add the style prop to it
           style: {
-            ...child.props.style,
-            ...(index > 0 ? childStyle : {}),
+            ...child.props.style, // this is to preserve the style prop that might be passed to the child
+            ...(index > 0 ? childStyle : {}), // this is to add the marginLeft style to all children except the first one
           }
         });
       })}
@@ -23,9 +23,10 @@ const Row = ({ children, spacing }) => {
 
 function LiveOrders() {
   return (
-    <div className="App">
-      <Row spacing={32}>
-        <p>Pizza Margarita</p>
+    <div className="App"> 
+    {/* The Row component is used to render a row of data. It takes a spacing prop that determines the spacing between the children. */}
+      <Row spacing={52}>
+        <p>Pizza Margarita</p> 
         <p>2</p>
         <p>30$</p>
         <p>18:30</p>

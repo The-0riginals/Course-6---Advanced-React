@@ -1,6 +1,9 @@
 import './App.css';
 
-const Button = ({ type, children, ...buttonProps }) => {
+const Button = ({ type, children, ...buttonProps }) => { 
+  // the button component takes a type prop that determines its style
+  // children prop is used to specify the text content of the button
+  // buttonProps is used to pass any other props to the button
   const className = type === "primary" ? "PrimaryButton" : "SecondaryButton";
   return (
     <button className={`Button ${className}`} {...buttonProps}>
@@ -17,6 +20,7 @@ const LoginButton = ({ type, children, ...buttonProps }) => {
       onClick={() => {
         alert("Logging in!");
       }}
+      // {...buttonProps}   => depending on the order of the spread, the behavior may differ 
     >
       {children}
     </Button>
