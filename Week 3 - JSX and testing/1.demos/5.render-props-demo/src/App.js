@@ -10,16 +10,25 @@ const DataFetcher = ({ render, url }) => {
     } else {
       setData(["water", "soda", "juice"]);
     }
-  }, []);
+  }, [url]);
 
-  return render(data);
+  return render(data); // render is a function that returns a component, so we can pass data to it
 };
 
 const DessertsCount = () => {
   return (
-    <DataFetcher 
+    <DataFetcher  
       url="https://littlelemon/desserts"
-      render={(data) => <p>{data.length} desserts</p>}
+      //render={(data) => <p>{data.length} desserts</p>}
+
+      //print the data in the console 
+      render={(data) => {
+        //console.log(data);
+        data.forEach((element) => {
+          console.log(element);
+        });
+        return <p>{data.length} desserts</p>;
+      }}
     />
   );
 };
@@ -28,7 +37,19 @@ const DrinksCount = () => {
   return (
     <DataFetcher 
       url="https://littlelemon/drinks"
-      render={(data) => <h3>{data.length} drinks</h3>}
+      //render={(data) => <h3>{data.length} drinks</h3>}
+
+      //print the data in the screen
+       render={(data) => {
+        return (
+          <div>
+            {data.map((element) => {
+              return <p>{element}</p>;
+            })}
+          </div>
+        );
+      }}
+    
     />
   );
 };

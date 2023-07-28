@@ -15,22 +15,23 @@ const withMousePosition = (WrappedComponent) => {
       y: 0,
     })
 
+    // useEffect is a hook that allows you to perform side effects in function components
     useEffect(() => {
-      const handleMousePositionChange = (e) => {
-        setMousePosition({
+      const handleMousePositionChange = (e) => { 
+        setMousePosition({ // setMousePosition is a function that updates the state
           x: e.clientX,
           y: e.clientY,
         });
       };
 
-      window.addEventListener("mousemove", handleMousePositionChange);
+      window.addEventListener("mousemove", handleMousePositionChange); // addEventListener is a function that adds an event listener to the window object
 
       return () => {
-        window.removeEventListener("mousemove", handleMousePositionChange);
+        window.removeEventListener("mousemove", handleMousePositionChange); // removeEventListener is a function that removes an event listener from the window object
       };
     }, []);
 
-    return <WrappedComponent {...props} mousePosition={mousePosition} />
+    return <WrappedComponent {...props} mousePosition={mousePosition} /> // {...props} is a spread operator that passes all props to the WrappedComponent
   };
 };
 // ---HOC
