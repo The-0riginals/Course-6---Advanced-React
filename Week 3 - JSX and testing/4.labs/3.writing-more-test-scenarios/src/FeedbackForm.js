@@ -14,8 +14,6 @@ function FeedbackForm({onSubmit}) {
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit({score, comment});
-    setScore("10");
-    setComment("");
   };
 
   return (
@@ -31,7 +29,7 @@ function FeedbackForm({onSubmit}) {
               onChange={(e) => {
                 setScore(e.target.value);
               }}
-              type="range"  
+              type="range"
               min="0"
               max="10"
             />
