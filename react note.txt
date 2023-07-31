@@ -1,0 +1,847 @@
+META use reactjs: facebook, ins, netflix,...
+
+-SPA: single-page application : This is a one-page website where some of the pages content changes a performs updates to the DOM, based on user interaction
++ And one of the most popular ways to build an SPA is with the React library from Meta
+
+DOM is a logical tree-like structure representing the HTML document and it uses nodes to describe the various parts of the document.
+It's important to know that every React app must contain at least one component, and it's called the root components
+
+ex: 
+ReactDOM.createRoot(
+document.querySelector('#root')
+).render(<App />)
+
+React app -> root component -> (header,sidebar,main)
+/---------------------------------------------------------
+npm is all about code sharing and reuse. You can use other people's code in your own projects, and you can also publish your own Node.js modules so that other people can use them.
+When Node.js is installed on a computer, npm comes bundled with it.
+
+
+//--------------------------------------------------------------
+Application:
+- node_modules:  install all packet/ module was listed on "packet.json"
+- public : contain the asset will display to user on the app
++ manifest.json : which is used to provide some metadata to a device when you're React powered web app is installed on it
+- src :  contains all the essential component files required to ensure that a React app functions
++ index.js and app.js, which are used to render the root components of the app. 
++ App.css contains the styles for the app.js components,  
++ index.css file contains the styles to use in the entire app. 
++ App.test.js, setupTests.js, and the reportsWebVitals.js are files related to the app's performance and testing. 
++ logo.svg file is displayed on the start page of the default app when the app is displayed in the browser on the local host. While these can be useful and the functionality is important, I can still safely delete them without affecting React's abilities to create a very basic application.
++ index.js file : This file imports everything that this React app needs to render a working React app. 
+
+- Root files are additional files that are found in the root of the project folder itself and include a gitignore file, two json files, and a README file
+- The .gitignore file is using version control and it's used to specify what files and folders must be excluded from a project.
+- The README.md file is a markdown file that gives some basic information on this project
+- package.json file lists information pertaining to my app, which allows npm to run several scripts and perform various tasks in the app itself : package.json file helps npm rebuild the app on another machine
+- package-loc.json file holds the list of all dependencies with a specific versions
+//----------------------------------------------------------------
+
+JSX: react use jsx to describe UI apprearance
+
+JSX: jsx syntax looks very similar to html but its combines Html and js, and be writed in function on App.js
++ used to genarate dynamic content inside functional components
++ Jsx: all componants in react must be capitalized (start with capital letter)(name of functions?) cuz react treat regular components as html elements
++  A React component is indeed much like a regular JavaScript function.     
++ For a component to render something on the page, it needs to return it as one or more JSX elements.
++ write directly html in js code
++ use { code } to signifiles a JSX expression : it means all the code inside would be regular js code 
+
+Transpiding : interpreting a programming language and translating it to a specific target language
++ you need it cuz : A browser cannot understand JSX syntax.
++For React code to be understood by a browser, you need to have a transpiling step in which the JSX code gets converted to plain JavaScript code 
+that a modern browser can work with.
+
+ex:
+
+JSX code:
+function Heading(props) {
+    return <h1>{props.title}</h1>
+}
+
+there's the transpiled, plain JavaScript code:
+"use strict";
+function Heading(props) {
+  return /*#__PURE__*/React.createElement("h1", null, props.title);   // body of the Heading function
+}
+
+What is the minimum code that a component must have to be able to show something on the screen when rendered?
+ans: 
+function Example() {
+    return <div>An element</div>
+}
+export default Example
+
+//---------------------------------------------------------
++ An element is just a way to represent the final HTML output as a plain object. It consists primarily of two attributes, type and props
+{
+	 type : 'button'
+	props: {
+	   className : 'button button-blue'
+	   children: {
+		type: 'span'
+		children:'submit'
+
+- a component refers to a small part of a larger entity that mostly is a manufactured object. In contrast, an element is one the simplest parts of which anything consists of
+
+- compare
+			Element								Component
+An element is always gets returned by a component.		A component can be functional or a class that optionally takes input and returns an element.
+The element does not have any methods.				Each component has its life cycle methods.
+A React element is an object representation of a DOM node.	A component encapsulates a DOM tree.
+Elements are immutable i,e once created cannot be changed.	The state in a component is mutable.
+An element can be created using React.createElement( ) with type property.	A component can be declared in different ways like it can be an element class with render() method or can be defined as a function.
+We cannot use React Hooks with elements as elements are immutable.	React hooks can be used with only functional components
+Elements are light, stateless and hence it is faster.		It is comparatively slower than elements.
+
+- dialog
+A Dialog is a type of modal window that appears in front of app content to provide critical information or ask for a decision. Dialogs disable all app functionality when they appear, and remain on screen until confirmed, dismissed, or a required action has been taken.
+
+- Component composition: is the name for passing components as props to other components
+- two main feature enable Component composition:
++ Specialization defines components as being “special cases” of other components. 
+ .For example, the ConfirmationDialog is a special case of Dialog.  
++ Containment refers to the fact that some components don’t know their children ahead of time. 
+ . And can also be described as generic boxes, like a Dialog or Alert.  
+
+
+Modules: Stand-alone unit of code that you can re-use again and again
++ import: import {Header} from "Header.js";
++ export: export default Header;
++ 2 type of export in js:
+. default is used when function is same as file name
+. name exports :'export {App}' : are used when function to be different from file name
++ module is series of components
+components/
+   header.js
+   MAin.js
+   Footer.js
+   sidebar.js
+
+props: In React, functional components are reusable blocks of code that act like a JavaScript function and you can pass data from one component to another using props
++  Data flow is one-directional which means that a parent component can send the same data to one or more child components, but it's not possible to communicate from the child components back to the parent component using props.
++The props object can be defined as a parameter within a function component.
+ex:
+
+- define in Header.js file:
+
+function Header(props) {
+    console.log(props);
+    return <h1>Hello there indeed, {props.name}, {props.color}</h1>;
+}
+export default Header;
+
+-call from app.js:
+
+function App() {
+  return (
+    <div>
+      <Header name="Anna" color="purple" />
+      <div className="grid-box">
+        <Main greet="Howdy" />
+        <Sidebar greet="Hi" />
+      </div>
+    </div>
+  );
+}
+
+style
++ Using React, you can easily convert a CSS rule to a JavaScript object, where each key-value pair describes a CSS declaration.  
++ Camelcase is a wat to separate the words in phare by making the first letter of each word capitalized and not using space.
+
+*) Components as Arrow Functions:
+const Nav = (props) => {
+    return (
+        <ul>
+            <li>{props.first}</li>
+        </ul>
+    )
+}
+the way to think about this is the following:
+
++ The arrow itself can be thought of as the replacement for the function keyword. 
++ The parameters that this arrow function accepts are listed before the arrow itself. 
+
+anonymous ES5 function: ' const example = function() {} '
+how this is written as an arrow function(ES6) : ' const example = () => {} '
+
+- Using Arrow Functions in Other Situations:
+ex : [10, 20, 30].forEach(item => item * 10)
+output: 100 ,200,300
+
++ in es5 it should be:
+[10, 20, 30].forEach(function(item) {
+        return item * 10
+    }
+)
+
+- benefit:  The ES6 function is a lot shorter because:
++ The arrow function has a single parameter, so you do not need to add parentheses around the item parameter (to the left of the arrow) 
++ Since the arrow function fits on one line of code, you don’t need to use curly braces around the function body, or the return keyword; it's implicit 
+
+-Embedded expressions: allow Js values to be inserted into HTML of React element
+const url ="image.png"
+const result = <img src={url}></img>;
+
+-ternary operator:
++same as using if...else..
++A ternary operator in JavaScript uses two distict characters: the first oneis the question mark, that is, the ? character. To the left of the ? character, you put a condition that you'd like to check for.
+
+ex: let name = 'Bob';
+name == 'Bob' ? console.log('Hello, Bob') : console.log('Hello, Friend');
+
+-function in JSX:
+ex:
+function Example2() {
+    return (
+        <div className="heading">
+            <h1>Here's a random number from 0 to 10: 
+                { Math.floor(Math.random() * 10) + 1 }
+            </h1>
+        </div>
+    );
+};
+
+
+//----------------------------------------------------------------------
+Events in react:
+
++ html : onclick => JSX : onClick (camel case)
+
+Event groups:
+- clipboard events
+- composition events
+- keyboard events
+- mouse events
++ onClick
++ onDrag
++ onDrop
++ ...
+- ...
+
+-use the try...catch blocks to handle event error
+- inh react, Contrary to plain JavaScript, you cannot invoke an event-handling function to handle an event such as the onClick. 
+ex wrong:
+<button onClick={handleClick()}>    ->    no ()
+  Click me
+</button>
+
+That’s one of the differences between JSX and plain JavaScript syntax.
+
+-HTML event handleing : 2 step 
+1. plug in to HTML elements to listen for an event
+2. Use AddEventListener method on Document object
+ex:
+<button id="js-btn"
+onclick="clickHandler()">click me!</button>
+
+- JAVASCRIPT event handling:
+ex:
+const jsBtn = document.getElementById('js-btn)   -> declare constant and assign value to DOM
+jsBTn.addEventListener('click',function() {      -> add event listener
+	console.log('clicked')
+})
+
+-IN REACT
+<button onClick={clickHandler}>click me!<button>   -> clickHanlder is a function outside
+
++ Handling events using inline anonymous ES5 functions:
+<button onClick={function() {console.log('first example')}}>
+    An inline anonymous ES5 function event handler
+</button>
+
++ Handling events using inline anonymous ES6 functions (arrow functions):
+<button onClick={() => console.log('second example')}>
+    An inline anonymous ES6 function event handler
+</button>
+
++ Handling events using separate function declarations:
+function App() {
+    function thirdExample() {
+        console.log('third example');
+    };
+    return (
+        <div className="thirdExample">
+            <button onClick={thirdExample}>
+                using a separate function declaration
+            </button>
+        </div>
+    );
+};
+export default App;
+
++ Handling events using separate function expressions:
+function App() {
+    const fourthExample = () => console.log('fourth example');
+
+    return (
+        <div className="fourthExample">
+            <button onClick={fourthExample}>
+                using a separate function expression
+            </button>
+        </div>
+  );
+};
+export default App;
+
+. Tip: A way to determine if a function is defined as an expression or a declaration is: if it does not start the line with the keyword function, then it’s an expression.
+
+/----------------------------------------------------------------
+DATA FLOW : one direction from parent to child
+What are the advantages of utilizing a centralized point of data - a "single source of truth" - in your React apps? Choose all that apply.      
+-It allows you to edit multiple items from a single point     
+Correct
+That's right! Using a single source of truth allows you to edit multiple items at the same time if they reference the same data, reduces odds of typing errors, and is more efficient when data changes often.       
+
+It reduces the possibility of typing errors in your code     
+Correct
+That's right! Using a single source of truth allows you to edit multiple items at the same time if they reference the same data, reduces odds of typing errors, and is more efficient when data changes often.       
+
+It offers a more efficient way of working when data frequently changes     
+Correct
+That's right! Using a single source of truth allows you to edit multiple items at the same time if they reference the same data, reduces odds of typing errors, and is more efficient when data changes often.       
+
+- two way to passing data: STATE AND PROPS
++ State data is a component’s internal data, which it can control and mutate.
++ Props data is outside of the component and is immutable, meaning it cannot change.
+
+HOOK:
++ (from React version 16.8) They let you hook into React state and lifestyle features from components. 
++ Hooks can be called only at the top level and only from React functions.      
++ You cannot call hooks inside loops or conditions
+
++ import: 
+           import React, { useState } from 'react';
++ Declare a state varible:
+ 	   const [state, setState] = useState(initialState);
++provide name, ex:
+	   const [word, setWord] = React.useState('Eat');   
+	-> create a state varible with initState : word
+	-> Create a function to set that state variale's value : setWord
+
+*) state
++   a component's internal data that determines the current behavior of a component.
++ is always referred to the local state of a component.
++ A child component will receive the data via properties, passing state that's set in a parent stateful component. 
+ex:
+import { useState } from 'react';
+
+export default function InputComponent() { 
+  const [inputText, setText] = useState('hello');   //setText to update inputText
+
+  function handleChange(e) { 
+    setText(e.target.value);     //->reads the latest input value from the browser’s input DOM element, and calls the setText function, to update the local state of inputText.
+  } 
+
+  return ( 
+    <> 
+      <input value={inputText} onChange={handleChange} /> 
+      <p>You typed: {inputText}</p> 
+      <button onClick={() => setText('hello')}>           //-> reset button will update the inputText back to “hello”. 
+        Reset 
+      </button> 
+    </> 
+  ); 
+} 
+
+
+- In addition to the useState hook, there are other hooks that come in handy such as useContext, useMemo, useRef, etc
+
++ useRef: use this hook to access a child element directly.
+ex: 
+function TextInputWithFocusButton() {
+  const inputEl = useRef(null);    //->  it will return a 'ref' object. The ref object has a property named 'current'.
+  const onButtonClick = () => {
+    // `current` points to the mounted text input element
+    inputEl.current.focus();
+  };
+  return (
+    <>
+      <input ref={inputEl} type="text" />
+      <button onClick={onButtonClick}>Focus the input</button>
+    </>
+  );
+}
+
+
+
+prop drilling:
++ is a situation where you are passing data from a parent to a child component, then to a grandchild component, and so on
+
+API: Application programing interface : teleport direct data from parent to grandchild or deeper
+
+* Context consumer :  Any component that uses the state provided by context API   
++ Context is useful for global state. It is the right tool when you needto share data that can be considered global for a tree of React components.  
++ resolve the props drillingproblem.  
+
+- stateful and stateless components
++  stateful component holds states as internal data and its state changes based on the way that the app is built; often as a result of user actions
++  A stateless component however, doesn't store states and any changes must be inherited through props
+++ Use stateless components when your component doesn't need to maintain its own state in order to work.
+++ Use stateful components when your component does need to maintain its own state in order to work.
+
+//----------------------------------------
+*) In React, the entire app is loaded inside a single div, you're not actually visiting different pages, 
+and Different views are rendered when React makes changes to the Virtual DOM, with React updating the real DOM accordingly.   
+
+- Basic Types of navigation:
+The most common navigation components are,
+- a horizontal navigation bar - navbar
+- a vertical navigation menu  - sidebar navigation
+- a menu hiding behind a button - represented by an icon that has three horizontal
+- and a footer navigation menu. - several visual columns containing links
+
+*) How Does a Single-Page App Work?
+When the user navigates to the web application in the browser, the Web Server will return the necessary resources to run the application. There are two approaches to serving code and resources in Single Page Applications.
+
+1.When the browser requests the application, return and load all necessary HTML, CSS and JavaScript immediately. 
+This is known as 'bundling'. 
+
+2.When the browser requests the application, return only the minimum HTML, CSS and JavaScript needed to load the application. 
+Additional resources are downloaded as required by the application, for example, when a user navigates to a specific section of the application. 
+This is known as 'lazy loading' or 'code splitting'. 
+
+*) React Router 
++gives you more control over the routing of components: 'npm install react-router-dom@6'
++The <a> tag (anchor tag) in HTML is used to create a hyperlink on the webpage
+
+- when they react website changes from home page text to about me text it isn't going to a new page, it's rendering one component instead of another.
+
+
+*) Asset
+In React, assets can be things like images, style sheets, fonts, media files, or basically any file that's needed by your app at runtime.
+- Bundling assets:
++ Bundling is a process that takes all the imported files in an app and joins them into a single file, referred to as a bundle.
++ this means that it will take various kinds of files, such as SVG and image files, CSS and SCSS files, JavaScript files, and TypeScript files, and it will bundle them together so that a browser can understand that bundle and work with it.
+
+-  three different ways to display an image in react app
++ specifically by using the import statement 
++ using the require function to set the file path, 
++ or by providing an image URL.
+
+- You can import an image like you would any other module. To use it, just evaluate it as a JSX expression (that is, enclose it inside curly braces). 
+ 	'import rooftops from './assets/images/central-park.jpg';' 
+
+
+
+- two ways of adding videos to your apps.
+ + The first method involves just serving a local video using the video element, 
+ + and the second method is using embedded third-party videos. There's another approach you may consider, namely using a third-party NPM package to streamline the process of adding videos to your app.
+ ex: 'npm install react-player'
+
+import React from "react";
+import ReactPlayer from "react-player/youtube";
+
+const App = () => {
+  return (
+    <div>
+      <MyVideo />
+    </div>
+  );
+};
+
+const MyVideo = () => {
+  return (
+    <ReactPlayer url='https://www.youtube.com/watch?v=ysz5S6PUM-U' />
+  );
+};
+
+export default App;
+?---------------------------------------------------------
+Now that you've completed the module, you should be able to :
+1 describe navigation design in React with a focus on single and multi-page navigation,
+2 create and implement a root in the form of a navbar, 
+3 demonstrate the conditional implementation and rendering of multiple components,
+4 explain the folder structure of a React project in terms of embedded or referenced assets,
+5 demonstrate how to manipulate image assets using reference paths, 
+6 and use media assets such as audio and video with React.
+
+//----------------------------------
+Course advanced:
+
+map()  :  
++ When using the map() method, you will need to define a new variable, as it always returns a new array.    
++ The map() method in JavaScript is used to transform lists of data.
++ `${ }`: dot notation to access the needed properties from the desert object
+ex: `${ dessert.title}`
+
+Sorting
+compareFn(a, b) return value
+
+sort 		order
+> 0		sort a after b
+< 0		sort a  before b 
+=== 0		keep original order of a and b 
+
+Keys:
+Keys are identifier's that help React to determine which items have changed or added or are removed. They also instruct how to treat a specific element when an update occurs and whether its internal state should be preserved or not
++ use unique ids
++ Although item indexes can be used as keys, using indexes as keys can create problems if the order of your list of items is prone to change and can negatively affect performance. Using unique and stable identifiers, such as item IDs, is recommended instead.  
+
+Spread Operator
+The JavaScript spread operator (...) allows us to quickly copy all or part of an existing array or object into another array or object.
+ex:
+const numbersOne = [1, 2, 3];
+const numbersTwo = [4, 5, 6];
+const numbersCombined = [...numbersOne, ...numbersTwo];
+
+Form component in React: feed back form week 1
++ Controlled components are a set of components that offer a declarative application programming interface or API to enable full control of the state of form elements at any point in time using React state.
++ controlled range component: The value prop is used to hook the local state up and onChange prop is used to receive the changes and update the state accordingly  
+. Value is a special property, the React added to most of the form elements to 'determine the input content' at any point in time during the render life cycle
+. onChange call back : prop is used to receive updates from any new text character entered in the input.
+ ex :
+ handleChange(event) {
+ setValue(event.target.value);
+}
+
+'onSubmit' : control over the form values whenever the form is submitted,   receives a DOM-like event as a parameter
+e.preventDefault(); // Prevent the default HTML form behavior (refresh the page to clear the form)
+
+*) Uncontrolled Inputs
+
+const Form = () => { 
+ const inputRef = useRef(null); 
+
+ const handleSubmit = () => { 
+   const inputValue = inputRef.current.value; 
+   // Do something with the value 
+ } 
+ return ( 
+   <form onSubmit={handleSubmit}> 
+     <input ref={inputRef} type="text" /> 
+   </form> 
+ ); 
+}; 
+
+*) Controlled Inputs
++ Instant validation per field 
++ Disabling the submit button unless all fields have valid data 
++ Enforcing a specific input format, like phone or credit card numbers 
++ In React, an <input type="file" /> is always an uncontrolled component because its value is read-only and can't be set programmatically. 
+
+ex:
+const Form = () => { 
+ const [value, setValue] = useState(""); 
+
+ const handleChange = (e) => { 
+   setValue(e.target.value) 
+ } 
+
+ return ( 
+   <form> 
+     <input 
+       value={value} 
+       onChange={handleChange} 
+       type="text" 
+     /> 
+   </form> 
+ ); 
+}; 
+//--------------------------------------------
+props and State
+- props passed to the components
+- state managed within the components
+-  State and props are both plain JavaScript or JS objects that React uses to hold information.  
+
+stateless: have only props
+statefull : have both props and state
+
+* React.memo là một higher order component, được sử dụng để bọc các component. Bằng việc sử dụng React.memo(), React sẽ bỏ qua việc render lại component và sử dụng kết đã render lần cuối cùng nếu component của bạn render cùng kết quả với cùng props.
+
+*) side effect: impure function( invoke console.log, fetch, geolocation)
+- pure function: return the same output
+
+- The useEffect Hook allows you to perform side effects in your components.
+Some examples of side effects are: fetching data, directly updating the DOM, and timers.
+useEffect accepts two arguments. The second argument is optional.
+useEffect(<function>, <dependency>)
+
+ex: 
+import { useState, useEffect } from "react";
+import ReactDOM from "react-dom/client";
+
+function Timer() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setCount((count) => count + 1);
+    }, 1000);
+  });
+
+  return <h1>I've rendered {count} times!</h1>;
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<Timer />);
+
+ex2:
+useEffect(() => { 
+  document.title = `Little Lemon, v${version}`;
+}, [version]); // Only re-run the effect if version changes 
+//  the integer variable version is passed as the second parameter. If version is 2 and the component re-renders and version still equals 2, React will compare [2] from the previous render and [2] from the next render. Since all items inside the array are the same, React would skip running the effect.
+
+-  if no second argument is provided to the useEffect function, the effect will run after every render.
+-  A way to instruct React to skip applying an effect is passing an array as a second parameter to useEffect.
+
+*) Hàm render chính là mô tả cụ thể của UI tại bất cứ thời điểm nào. Vì thế nếu dữ liệu thay đổi, React sẽ thực hiện việc update UI với dữ liệu tương ứng. Khi dữ liệu thay đổi, React sẽ tự động gọi hàm render để update lại UI.
+ex 3:
+function MenuPage(props) { 
+  const [data, setData] = useState([]); 
+
+  useEffect(() => { 
+    document.title = 'Little Lemon'; 
+  }, []); 
+
+  useEffect(() => { 
+    fetch(`https://littlelemon/menu/${id}`) 
+      .then(response => response.json()) 
+      .then(json => setData(json)); 
+  }, [props.id]); 
+
+  // ... 
+} 
+
+- Returning a function is optional and it’s the mechanism React provides in case you need to perform additional cleanup in your components.
+
+*)  The four main rules of hooks are as follows.
+ First, you should only call hooks from a React component function.
+ Second, you should only call hooks at the top level of a React component function.(out side if condition,loop; before return statement )
+ Third, you are allowed to call multiple state hooks or effect hooks inside a component.
+ And finally, always make these multiple hook calls in the same sequence. 
+
+*) Fetch funtion:
+Fetch is used to make a server requests to retrieve some JSON data from it. 
+Fetch API is a set of functionalities that we have at our disposal to use in JavaScript to make such a server request
+
++ When JavaScript uses the fetch function it is delegating duties to an external API so that it can continue its process. This is known as asynchronous JavaScript.  
++ The fetchData function initially fetches data from the API(url or ...), next it retrieves a response from the API in JSON format, and finally updates the state variable with the returned data.  
+
++If you’re making multiple hook calls, you always need to call them in the same sequence. You do have to always make multiple hook calls in the same sequence.
+
+*) useReducer 
++ You can think of the useReducer as a superpower usestate. They useState hook starts with an initial state, but they useReducer hook gets a reducer function in addition to the initial state.
++ The useReducer Hook is similar to the useState Hook.
++ It allows for custom state logic.
++ If you find yourself keeping track of multiple pieces of state that rely on complex logic, useReducer may be useful.
+ 
+*) The useRef Hook
++ allows you to persist values between renders.
++ It can be used to store a mutable value that does not cause a re-render when updated.
++ It can be used to access a DOM element directly.
++ The returned value from the useRef hook invocation is an object.  
+
+ex: 
+import { useEffect } from "react";
+
+function useConsoleLog(varName) {
+  useEffect(() => {
+    console.log(varName);
+  }, [varName]);
+}
+
+export default useConsoleLog;
+
+app:
+import { useState } from "react";
+import useConsoleLog from "./useConsoleLog";
+
+function App() {
+  const [count, setCount] = useState(0);
+  useConsoleLog(count);
+
+  function increment() {
+    setCount(prevCount => prevCount + 1);
+  }
+
+  return (
+    <div>
+      <h1>Count: {count}</h1>
+      <button onClick={increment}>Plus 1</button>
+    </div>
+  );
+}
+
+export default App;
+/------------------------------
+REACT CHILDREN:
+children is a special prop, automatically passed to every component, that can be used to render the content included between the opening and closing tags when invoking a component
+
+In JSX expressions, the content between an opening and closing tag is passed as a unique prop called children. There are several ways to pass children, such as rendering string literals or using JSX elements and JavaScript expressions
+- String literals
+	<MyComponent>Little Lemon</MyComponent>
+- JSX Elements
+ex:
+<Alert>
+  <Title />
+  <Body />
+</Alert>
+- mix:
+<Alert>
+  <div>Are you sure?</div>
+  <Body />
+</Alert>
+- JavaScript Expressions:
+	<MyComponent>{'Little Lemon'}</MyComponent>
+or:
+
+function Dessert(props) {
+  return <li>{props.title}</li>;
+}
+
+function List() {
+  const desserts = ['tiramisu', 'ice cream', 'cake'];
+  return (
+    <ul>
+      {desserts.map((dessert) => <Item key={dessert} title={dessert} />)}
+    </ul>
+  );
+}
+
+
+*) Manipulating children dynamically in JSX
+- React.cloneElement(element,[props])
++ modify children properties:
+( Props in React are immutable objects, so onceReact.cloneElement has created a copy of the element it can then modify the childrens properties in the copy.  )
++ add children properties
++ extend functionaly of children
+- react.children
++ React.children.map(children, callback)
++ React.Children.forEach
+( Chúng hoạt động giống như khi chúng ta dùng map và forEach đối với mảng. Chỉ khác là React.Children cho phép chúng ta thao tác với cả object hay là function tương tự như vậy.)
+ex: 
+<Dad>
+    <h1>First message</h1>
+    <h2>Second message</h2>
+</Dad>
+
+display h1 & h2:
+return (
+  <div>
+    {React.Children.map(this.props.children, child => {
+      return child;
+    })}
+  </div>
+);
+or:
+return (
+  <div>
+    {this.props.children.map(child => {
+      return child;
+    })}
+  </div>
+);
+
+but what if we have:
+<Dad>
+    <h1>First message</h1>
+    <h2>Second message</h2>
+    {() => <h3>Third message</h3>}
+</Dad>
+=> this.props.children sẽ raise lên warning là Functions are not valid as a React child còn sử dụng React.Children.map thì không
+
+*) Spread Attributes
+Spread attributes is a JSX feature, it's a syntax for passing all of an object's properties as JSX attributes.
++ The spread operator is a great tool that enables the creation of more flexible components, especially when forwarding props automatically to other components that expect them as well as providing your consumers with a nice component.
++ depending on the order of the spread, the behavior may differ
+///--------------------------------------------------------------
+
+A Concern is a term that refers to a part of the system divided on the basis of the functionality.
+There are two types of concerns:
+1. The concerns representing single and specific functionality for primary requirements are known as core concerns.
++ Primary functionality of the system is known as core concerns.
+For example: Business logic
+2. The concerns representing functionalities for secondary requirements are referred to as crosscutting concerns or system-wide concerns.
+
+*) The cross-cutting concern 
+-  is a concern which is applicable throughout the application and it affects the entire application.
++ For example: logging, security and data transfer are the concerns which are needed in almost every module of an application, hence they are cross-cutting concerns.
+- Cross-cutting functionality in React using Higher-Order Components, Render Props
+
+HOC: HIGHER ORDER COMPONENTS
++ A HOC transforms a component into another component. In other words, it enhances or extends the capabilities of the component provided.
++ You can define logic in a single place, share it across many components, and keep them unchanged and stateless.
+
++ never mutating a component inside a HOC, 
++ passing unrelated props to your wrapped component,
++ maximizing composability by leveraging the Component => Component signature.
+
++ compose(f, g, h) is the same as (...args) => f(g(h(...args)))
+EX:
+const enhance = compose(
+  // These are both single-argument HOCs
+  withMousePosition,
+  withURLLocation,
+  connect(selector)
+);
+
+// Enhance is a HOC
+const EnhancedComponent = enhance(WrappedComponent);
+
+-  The 'with' part of the HOC name is a general convention recommended by React, as it expresses the enhancing nature of the technique, like providing a component ‘with’ something else. 
+
+RENDER PROPS
++ a component with a render prop takes a function that returns a react element and calls that function inside its render logic
++ The DataFetcher component returns the result of calling the render function and has no other rendering business.
+
+different :
+. Render props provide the new data as a function parameter, whereas components wrapped with an HOC get the new data as a new prop. 
+. They inject the new props in the component to be enhanced in a different way. 
+
+
+*) AUTOMATION TEST: 
+- discover bugs
+- ensure software quality
+-safe time & money
+
++ avoid including implementation details
++ work with DOM nodes
++ resemble software useage
++ maintainability
+
+1. Jest
++ js test runner
++ provide to access to jsdom
++ good interation speed
++ powerful features: mocking
+. mocking refers to something made as an imitation, and enables you to replace complex functions from your code with others that are simpler and simulate the same behavior.
+. Mocking features can be used to make sure that your unit testing is standalone
+
+2. REACT TESTING LIBRARY
++ set of utilities that let you test React components without relying on their implementation details. 
++ React Testing Library has been designed to fulfill all the best practices highlighted before
++  Screen.getByLabelText asks the root document to find a label tag whose text contains a specified text value and then return the input element associated with that label
++  The handleSubmit function is hooked into the form onSubmit attribute, and calls the prop function provided by the parent with the corresponding form values.
++ To fill the input and update the state with a value, you can use the fireEvent.change() utility from React Testing Library.  
++ React controlled components update their state via the onChange prop, React Testing Library follows a slightly different convention.
+
+*) HOC VS Custom hooks:
+Higher Order Components, if it does make sense to use the children component without any data provided. 
+Hooks when the children always need the information to function. 
+
+HOC if you don't have to manipulate the data according to the children, so all the children components will use the data as it is.
+Hooks if you have to apply different manipulations depending on the children. 
+
+/-------------------------
+Continuous Integration (CI) is a software development technique in which developers use a version control system, like Git, and push code changes daily, multiple times a day
+- The CI tool monitors the central code repository and prevents people from deciding when and how to run tests. Every time there is a new commit, it runs all automated tests.
+
+- A typical development workflow:
++ A developer from the team creates a new branch of code in Github, performs changes in the code, and commits them. 
++ When the developer pushes its work to GitHub, the CI system builds the code on its servers and runs the automated test suite. 
++ Suppose the CI system detects any error in the CI pipeline. In that case, the developer who pushed the code gets a notification, for example, via email, and the status of CI changes to red. The developer is responsible for analyzing what went wrong and fixing the problem. 
++ Otherwise, if the status is green and all goes well, the pipeline moves to its next stage, which usually involves deploying a new version of the application to a staging server. This new version can be used internally by the Quality Assurance (QA) team to verify the changes in a production-like environment. 
+
+
+- A style guide tells a developer how to work with a particular programming language. Programming style guides are composed of rules and guidance. Rules are mandates, with very few exceptions, enforceable throughout the entire IT organization. Rules make good and bad programming behavior explicit.
+
+
+
+
+
+
+
+
+
+
